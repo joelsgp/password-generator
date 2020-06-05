@@ -1,4 +1,5 @@
-from random import randint, choice
+import random
+import re
 ##from tkinter import *
 
 # Constants
@@ -11,15 +12,16 @@ num_of_words = 3
 
 
 # Get word list from txt document formatted as python list
-# TODO: remove eval call, very bad
 words_file = open('words.txt', 'r')
 words_str = words_file.read()
-words_list = eval(words_str)
+
+words_list = re.findall(r'\'(.+?)\'\,', words_str)
+##print(words_list[0:50])
 
 def add_random_words(password, num_of_words=3, word_length_max=7):
     for i in range(num_of_words):
         while True:
-            word = choice(words_list)
+            word = random.choice(words_list)
             if len(word) <+ word_length_max:
                 break
             
@@ -32,7 +34,7 @@ def add_random_numerals(password, digits=2):
     numerals = ""
 
     for i in range(digits):
-        numerals += str(randint(0,9))
+        numerals += str(random.randint(0,9))
     password += numerals
 
     return password
