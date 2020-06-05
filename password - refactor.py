@@ -1,48 +1,63 @@
 from random import randint, choice
-##    from tkinter import *
+##from tkinter import *
 
+# Constants
 word_length_max = 7
 num_of_words = 3
-#TURN THIS OFF IF NOT USING
-#pass_length_min = 8
-#pass_length_max = 12
+# TURN THIS OFF IF NOT USING
+# note from new joel - why?
+##pass_length_min = 8
+##pass_length_max = 12
 
 
-
+# Get word list from txt document formatted as python list
+# TODO: remove eval call, very bad
 words_file = open('words.txt', 'r')
 words_str = words_file.read()
 words_list = eval(words_str)
 
-def gen():
-    password = ""
-
-    #while len(password) > pass_length_max or len(password) < pass_length_min:
+def add_random_words(password, num_of_words=3, word_length_max=7):
     for i in range(num_of_words):
         while True:
             word = choice(words_list)
-            if len(word) < word_length_max:
+            if len(word) <+ word_length_max:
                 break
-        word = word[0].upper() + word[1:]
+            
+        word = word[0].upper() + word[1:].lower()
         password += word
-        
-    Number = str(randint(0, 99))
-    if len(Number) == 1:
-        Number = '0' + Number
-    password += Number
 
+    return password
+
+def add_random_numerals(password, digits=2):
+    numerals = ""
+
+    for i in range(digits):
+        numerals += str(randint(0,9))
+    password += numerals
+
+    return password
+
+def generate_password():
+    password = ""
+
+    ##while len(password) > pass_length_max or len(password) < pass_length_min:
+    password = add_random_words(password)
+
+    password = add_random_numerals(password)
+        
     print(password + " -" + str(len(password)) + " characters")
 
 while True:
-    gen()
+    generate_password()
     input()
 
-##        Text.delete(0.0, END)
-##        Text.insert(END, password)
-
-##    Window = Tk()
+##    Text.delete(0.0, END)
+##    Text.insert(END, password)
 ##
-##    Text = Text(Window, width=23, height=1)
-##    Button = Button(Window, text='Generate a password', command=gen)
+##Window = Tk()
 ##
-##    Text.pack()
-##    Button.pack()
+##Text = Text(Window, width=23, height=1)
+##Button = Button(Window, text='Generate a password', command=gen)
+##
+##Text.pack()
+##Button.pack()
