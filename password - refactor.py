@@ -44,8 +44,11 @@ def generate_password():
     password = add_random_words(password)
 
     password = add_random_numerals(password)
-        
-    print(password + " -" + str(len(password)) + " characters")
+
+    # NOTE (vulnerability): this works, but not for arbitrary character counts
+    pass_length = len(password)
+    spacing = 30 - pass_length - len(str(pass_length))
+    print(password + " "*spacing + "-" + str(pass_length) + " characters")
 
 while True:
     generate_password()
