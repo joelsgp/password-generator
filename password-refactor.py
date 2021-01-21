@@ -1,12 +1,14 @@
-import random
+#!/usr/bin/env python
+
 import re
+import random
+import json
 ##from tkinter import *
 
 
-# Get word list from txt document formatted as python list
-words_file = open('words.txt', 'r')
-words_str = words_file.read()
-words_list = re.findall(r'\'(.+?)\'\,', words_str)
+# Get word list
+with open('words.json') as words_file:
+    words_list = json.load(words_file)
 
 ##print(words_list[0:50])
 
@@ -19,7 +21,7 @@ def add_random_words(password, num_of_words=3, word_length_max=7):
             if len(word) <+ word_length_max:
                 break
             
-        word = word[0].upper() + word[1:].lower()
+        word = word.title()
         password += word
 
     return password
