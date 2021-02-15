@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-import re
-import random
 import json
+import random
 ##from tkinter import *
+
+import pyperclip
 
 
 # Get word list
@@ -51,6 +52,9 @@ def generate_password(pass_length_min=8, pass_length_max=12):
     pass_length = len(password)
     spacing = 30 - pass_length - len(str(pass_length))
     print(password + " "*spacing + "-" + str(pass_length) + " characters")
+    pyperclip.copy(password)
+
+    return password
 
 
 
