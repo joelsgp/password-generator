@@ -1,51 +1,74 @@
-try:
-    MaxWordLength = 7
-    WordsPerPass = 3
-    #TURN THIS OFF IF NOT USING
-    #MinPassLength = 8
-    #MaxPassLength = 12
+#!/usr/bin/env python
 
-    from random import randint, choice
-##    from tkinter import *
+import re
+import random
+import json
+##from tkinter import *
 
-    DictFile = open('words.txt', 'r')
-    DictTxt = DictFile.read()
-    Dict = eval(DictTxt)
 
-    def gen():
-        Password = ''
+# Get word list
+with open('words.json') as words_file:
+    words_list = json.load(words_file)
 
-        #while len(Password) > MaxPassLength or len(Password) < MinPassLength:
-        for i in range(WordsPerPass):
-            while True:
-                Word = choice(Dict)
-                if len(Word) < MaxWordLength:
-                    break
-            Word = Word[0].upper() + Word[1:]
-            Password += Word
+##print(words_list[0:50])
+
+
+# Function to add random words to string.
+def add_random_words(password, num_of_words=3, word_length_max=7):
+    for i in range(num_of_words):
+        while True:
+            word = random.choice(words_list)
+            if len(word) <+ word_length_max:
+                break
             
-        Number = str(randint(0, 99))
-        if len(Number) == 1:
-            Number = '0' + Number
-        Password += Number
+        word = word.title()
+        password += word
 
-        print(Password + " -" + str(len(Password)) + " characters")
+    return password
 
-    while True:
-        gen()
-        input()
+# Function to add random numerals to string.
+def add_random_numerals(password, digits=2):
+    numerals = ""
 
-##        Text.delete(0.0, END)
-##        Text.insert(END, Password)
+    for i in range(digits):
+        numerals += str(random.randint(0,9))
+    password += numerals
 
-##    Window = Tk()
+    return password
+
+
+# Actual password generation function, combines other two functions and prints
+def generate_password(pass_length_min=8, pass_length_max=12):
+    ##while len(password) > pass_length_max or len(password) < pass_length_min:
+    password = ""
+
+    password = add_random_words(password)
+
+    password = add_random_numerals(password)
+
+    # Use password length to normalise placement of password length indicator.
+    # NOTE (vulnerability): this works, but not for arbitrary character counts
+    pass_length = len(password)
+    spacing = 30 - pass_length - len(str(pass_length))
+    print(password + " "*spacing + "-" + str(pass_length) + " characters")
+
+
+
+# Mainloop
+while True:
+    generate_password()
+    input()
+
+
+#TODO: finish adding UI
+
+##    Text.delete(0.0, END)
+##    Text.insert(END, password)
 ##
-##    Text = Text(Window, width=23, height=1)
-##    Button = Button(Window, text='Generate a password', command=gen)
+##Window = Tk()
 ##
-##    Text.pack()
-##    Button.pack()
-except:
-    from sys import exc_info
-    print(exc_info())
-    delay = input()
+##Text = Text(Window, width=23, height=1)
+##Button = Button(Window, text='Generate a password', command=gen)
+##
+##Text.pack()
+##Button.pack()
