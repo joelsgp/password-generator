@@ -2,13 +2,15 @@
 
 import json
 import random
+from pathlib import Path
 ##from tkinter import *
 
 import pyperclip
 
 
 # Get word list
-with open('words.json') as words_file:
+word_list_path = Path(__file__).parent.joinpath('words.json')
+with open(word_list_path) as words_file:
     words_list = json.load(words_file)
 
 ##print(words_list[0:50])
