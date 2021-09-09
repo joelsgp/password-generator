@@ -26,7 +26,7 @@ def add_random_words(password, num_of_words=3, word_length_max=7):
             word = random.choice(words_list)
             if len(word) <+ word_length_max:
                 break
-            
+
         word = word.title()
         password += word
 
