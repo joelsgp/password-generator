@@ -8,6 +8,9 @@ from pathlib import Path
 import pyperclip
 
 
+__version__ = '1.0.0'
+
+
 # Get word list
 word_list_path = Path(__file__).parent.joinpath('words.json')
 with open(word_list_path) as words_file:
@@ -59,11 +62,14 @@ def generate_password(pass_length_min=8, pass_length_max=12):
     return password
 
 
+def main():
+    while True:
+        generate_password()
+        input()
 
-# Mainloop
-while True:
-    generate_password()
-    input()
+
+if __name__ == '__main__':
+    main()
 
 
 #TODO: finish adding UI
