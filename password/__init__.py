@@ -2,6 +2,7 @@
 
 import json
 import random
+import sys
 from pathlib import Path
 ##from tkinter import *
 
@@ -55,9 +56,12 @@ def generate_password():
 
 
 def main():
-    while True:
-        generate_password()
-        input()
+    try:
+        while True:
+            generate_password()
+            input()
+    except KeyboardInterrupt:
+        sys.exit()
 
 
 if __name__ == '__main__':
