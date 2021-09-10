@@ -10,12 +10,14 @@ setuptools.setup(
     version=password.__version__,
     author='JMcB',
     author_email='joel.mcbride1@live.com',
-    license='GPLv3',
     description='Simple python password generator',
 ##    long_description=long_description,
 ##    long_description_content_type='text/markdown',
     url='https://github.com/JMcB17/password-generator',
-    py_modules=['password'],
+    packages=setuptools.find_packages(),
+    package_data={
+        '': ['words.json'],
+    },
     entry_points={
         'console_scripts': [
             'passwordgen=password:main'
@@ -29,5 +31,8 @@ setuptools.setup(
     python_requires='>=3',
     install_requires=[
         'pyperclip>=1,<2'
-    ]
+    ],
+    **{
+        'license': 'GPLv3',
+    }
 )
