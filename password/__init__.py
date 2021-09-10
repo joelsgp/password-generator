@@ -9,7 +9,7 @@ from pathlib import Path
 import pyperclip
 
 
-__version__ = '1.2.0'
+__version__ = '1.2.1'
 
 
 # Get word list
@@ -61,6 +61,7 @@ def main():
             generate_password()
             input()
     except KeyboardInterrupt:
+        print()
         sys.exit()
 
 
