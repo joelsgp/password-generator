@@ -6,7 +6,7 @@ import password
 ##    long_description = readme_file.read()
 
 setuptools.setup(
-    name='password',
+    name='password-generator',
     version=password.__version__,
     author='JMcB',
     author_email='joel.mcbride1@live.com',
@@ -18,7 +18,7 @@ setuptools.setup(
     py_modules=['password'],
     entry_points={
         'console_scripts': [
-            'password=password:main'
+            'passwordgen=password:main'
         ]
     },
     classifiers=[
